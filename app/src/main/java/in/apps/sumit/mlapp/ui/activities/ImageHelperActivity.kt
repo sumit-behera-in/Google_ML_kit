@@ -67,7 +67,7 @@ class ImageHelperActivity : AppCompatActivity() {
     }
 
     private fun createPhotoFile(): File {
-        val photoFileDir = File(getExternalFilesDir(), "Ml_IMAGE_HELPER")
+        val photoFileDir = File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "Ml_IMAGE_HELPER")
 
         if (!photoFileDir.exists()) photoFileDir.mkdirs()
 
