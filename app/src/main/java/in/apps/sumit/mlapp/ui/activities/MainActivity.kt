@@ -1,4 +1,4 @@
-package `in`.apps.sumit.mlapp
+package `in`.apps.sumit.mlapp.ui.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.imageHelper.setOnClickListener {
-            val intent = Intent(this,ImageHelperActivity::class.java)
+            val intent = Intent(this, ImageHelperActivity::class.java)
             startActivity(intent)
         }
     }

@@ -16,12 +16,12 @@
         android:theme="@style/Theme.MLApp"
         tools:targetApi="31" >
         <activity
-            android:name=".ImageHelperActivity"
+            android:name=".ui.activities.ImageHelperActivity"
             android:exported="false"
             android:label="@string/title_activity_image_helper"
             android:theme="@style/Theme.MLApp" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
