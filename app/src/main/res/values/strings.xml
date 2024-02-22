@@ -44,4 +44,6 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="output">Output</string>
+    <string name="text_recognization">Text Recognization</string>
+    <string name="barcode_scanner">Barcode Scanner</string>
 </resources>

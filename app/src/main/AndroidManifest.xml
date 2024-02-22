@@ -24,7 +24,7 @@
         android:theme="@style/Theme.MLApp"
         tools:targetApi="31" >
         <activity
-            android:name=".ui.activities.ImageHelperActivity"
+            android:name=".ui.activities.ClassfierActivity"
             android:exported="false"
             android:label="@string/title_activity_image_helper"
             android:theme="@style/Theme.MLApp" />
