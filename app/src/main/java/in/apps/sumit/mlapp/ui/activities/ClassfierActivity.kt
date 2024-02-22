@@ -11,6 +11,9 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.google.mlkit.vision.barcode.BarcodeScanner
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.label.ImageLabeler
 import com.google.mlkit.vision.label.ImageLabeling
@@ -31,7 +34,7 @@ class ClassfierActivity : AppCompatActivity() {
     private lateinit var photoFile: File
     private lateinit var operation: String
     private lateinit var textRecognizer: TextRecognizer
-    
+    private lateinit var barcodeScanner: BarcodeScanner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,7 @@ class ClassfierActivity : AppCompatActivity() {
 
         imageLabeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
         textRecognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+        barcodeScanner = BarcodeScanning.getClient()
 
     }
 
@@ -166,6 +170,50 @@ class ClassfierActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+            }
+
+            "barcodeScanner" -> {
+                barcodeScanner.process(inputImage)
+                    .addOnSuccessListener { barcodes ->
+                        // Task completed successfully
+                        // ...
+                        var result = String()
+                        var i: Int = 1
+                        for (barcode in barcodes) {
+                            val rawValue = barcode.rawValue
+                            val valueType = barcode.valueType
+                            result += "\nBarcode $i\n\n"
+                            result += "Raw Value = $rawValue \n"
+                            result += "Value Type = $valueType \n"
+                            i++
+                            // See API reference for complete list of supported types
+                            when (valueType) {
+                                Barcode.TYPE_WIFI -> {
+                                    result += "ssid = ${barcode.wifi!!.ssid}\n"
+                                    result += "password = ${barcode.wifi!!.password}\n"
+                                    result += "type = ${barcode.wifi!!.password}\n"
+                                }
+
+                                Barcode.TYPE_URL -> {
+                                    result += "title = ${barcode.url!!.title}\n"
+                                    result += "url = ${barcode.url!!.url}\n"
+                                }
+                            }
+                            result += "\n"
+                        }
+
+                        binding.textViewOutput.text = result
+                    }
+                    .addOnFailureListener { e ->
+                        // Task failed with an exception
+                        // ...
+                        Toast.makeText(
+                            this@ClassfierActivity,
+                            "Image Processing Failed with $e",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
             }
         }
     }

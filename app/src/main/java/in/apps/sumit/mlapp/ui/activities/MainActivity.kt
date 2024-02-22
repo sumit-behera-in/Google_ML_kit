@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.barcodeScanner.setOnClickListener {
+            val intent = Intent(this, ClassfierActivity::class.java)
+            intent.putExtra("operation", "barcodeScanner")
+            startActivity(intent)
+        }
     }
 
 }
